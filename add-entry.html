@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add a New Memory</title>
+  <link rel="stylesheet" href="timeline.css">
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1 class="title">Add a New Memory</h1>
+
+  <form id="entry-form" class="scrap-form">
+    <label>Date</label>
+    <input type="date" id="date">
+
+    <label>Title</label>
+    <input type="text" id="title">
+
+    <label>Summary</label>
+    <textarea id="summary"></textarea>
+
+    <label>Details (optional)</label>
+    <textarea id="details"></textarea>
+
+    <label>Image URL (optional)</label>
+    <input type="text" id="image">
+
+    <label>Read More Link (optional)</label>
+    <input type="text" id="readMore">
+
+    <button type="submit">Generate JSON</button>
+  </form>
+
+  <h2>Copy this into timeline.json:</h2>
+  <pre id="output"></pre>
+
+  <script src="add-entry.js"></script>
+</body>
+</html>

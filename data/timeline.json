@@ -1,0 +1,11 @@
+[
+    {
+        "id": "first-date",
+        "date": "1985-01-01",
+        "title": "First Date",
+        "summary": "The first date of the timeline.",
+        "details": "This is the detailed description of the first date.",
+        "image": "https://example.com/image1.jpg",
+        "readMore": "https://example.com/more1"
+    }
+]
