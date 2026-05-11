@@ -11,12 +11,24 @@ fetch("data/timeline.json")
       div.style.left = `${index * 260}px`;
 
       div.innerHTML = `
-        <div class="polaroid">
-          <div class="tape"></div>
-          ${event.image ? `<img src="${event.image}" alt="">` : ""}
-          <div class="caption">${event.title}</div>
-        </div>
-      `;
+  <div class="polaroid">
+    <div class="tape"></div>
+    <div class="polaroid-inner">
+      ${
+        event.image
+          ? `<img src="${event.image}" alt="">`
+          : `
+            <div class="polaroid-text">
+              <strong>${event.title}</strong>
+              <p>${event.summary}</p>
+            </div>
+          `
+      }
+    </div>
+    <div class="caption">${event.date}</div>
+  </div>
+`;
+
 
       div.addEventListener("mouseenter", () => showTooltip(event, div));
       div.addEventListener("mouseleave", hideTooltip);
