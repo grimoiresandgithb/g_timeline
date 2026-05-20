@@ -1,39 +1,34 @@
 fetch("data/timeline.json")
   .then(res => res.json())
   .then(events => {
-    const container = document.getElementById("timeline-events");
+    const container = document.getElementById("timeline-container");
 
     events.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     events.forEach((event, index) => {
-      const div = document.createElement("div");
-      div.className = "timeline-event";
-      div.style.left = `${index * 260}px`;
+      const side = index % 2 === 0 ? "left" : "right";
 
-      div.innerHTML = `
-  <div class="polaroid">
-    <div class="tape"></div>
-    <div class="polaroid-inner">
-      ${
-        event.image
-          ? `<img src="${event.image}" alt="">`
-          : `
-            <div class="polaroid-text">
-              <strong>${event.title}</strong>
-              <p>${event.summary}</p>
-            </div>
-          `
-      }
-    </div>
-    <div class="caption">${event.date}</div>
-  </div>
-`;
+      const item = document.createElement("div");
+      item.className = `timeline-item ${side}`;
 
+      item.innerHTML = `
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" data-id="${event.id}">
+          <h3>${event.title}</h3>
+          <p>${event.summary}</p>
+        </div>
+      `;
 
-      div.addEventListener("mouseenter", () => showTooltip(event, div));
-      div.addEventListener("mouseleave", hideTooltip);
+      item.addEventListener("mouseenter", () => showTooltip(event, item));
+      item.addEventListener("mouseleave", hideTooltip);
 
-      container.appendChild(div);
+      item.querySelector(".timeline-card").addEventListener("click", () => {
+        if (event.readMore) {
+          window.location.href = event.readMore;
+        }
+      });
+
+      container.appendChild(item);
     });
   });
 
@@ -49,12 +44,12 @@ function showTooltip(event, element) {
   tooltip.innerHTML = `
     <strong>${event.title}</strong><br>
     ${event.summary}
-    ${event.readMore ? `<br><a href="${event.readMore}">Read more</a>` : ""}
+    ${event.readMore ? `<br><em>Click card for more</em>` : ""}
   `;
 
   const rect = element.getBoundingClientRect();
-  tooltip.style.left = rect.left + "px";
-  tooltip.style.top = rect.top - 120 + "px";
+  tooltip.style.left = rect.left + rect.width / 2 + "px";
+  tooltip.style.top = rect.top - 80 + "px";
   tooltip.style.display = "block";
 }
 
